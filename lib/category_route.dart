@@ -66,11 +66,19 @@ class CategoryRoute extends StatelessWidget {
 
   /// For portrait, we construct a [ListView] from the list of category widgets.
   /// For landscape, we construct a [GridView] from the list of category widgets.
-  Widget _buildCategoryWidgets(List<Widget> categories) {
-    return ListView.builder(
+  Widget _buildCategoryWidgets(List<Widget> categories, orientation) {
+    if(orientation == Orientation.portrait){
+      return ListView.builder(
         itemBuilder: (BuildContext context, int index) => categories[index],
         itemCount: categories.length,
-    );
+      );
+    }else{
+      return GridView.count(
+        crossAxisCount: 2,
+        childAspectRatio: 3.0,
+        children: categories,
+      );
+    }
   }
 
 
@@ -92,7 +100,7 @@ class CategoryRoute extends StatelessWidget {
     final listView = Container(
       color: _backgroundColor,
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: _buildCategoryWidgets(categories),
+      child: _buildCategoryWidgets(categories, Orientation.portrait),
     );
 
     // TODO: Create an App Bar
