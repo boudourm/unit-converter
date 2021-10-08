@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:unit_converter/category.dart';
+import 'package:unit_converter/unit.dart';
 
 // TODO: Check if we need to import anything
 
@@ -81,6 +82,17 @@ class CategoryRoute extends StatelessWidget {
     }
   }
 
+  /// Returns a list of mock [Unit]s.
+  List<Unit> _retrieveUnitList(String categoryName) {
+    return List.generate(10, (int i) {
+      i += 1;
+      return Unit(
+        name: '$categoryName Unit $i',
+        conversion: i.toDouble(),
+      );
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +105,7 @@ class CategoryRoute extends StatelessWidget {
         name: _categoryNames[i],
         color: _baseColors[i] as ColorSwatch<dynamic>,
         iconLocation: _categoryIcons[i],
+        units: _retrieveUnitList(_categoryNames[i]),
       ));
     }
 
